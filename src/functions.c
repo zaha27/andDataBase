@@ -613,7 +613,6 @@ void internal_node_insert(Table* table, uint32_t parent_page_num,
   *internal_node_num_keys(parent) = original_num_keys + 1;
 
   if (child_max_key > get_node_max_key(table->pager, right_child)) {
-    /* Replace right child */
     *internal_node_child(parent, original_num_keys) = right_child_page_num;
     *internal_node_key(parent, original_num_keys) =
         get_node_max_key(table->pager, right_child);
