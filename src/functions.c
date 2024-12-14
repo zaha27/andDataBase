@@ -1,38 +1,59 @@
 #include "header.h"
 
-const uint32_t ID_SIZE = size_of_attribute(Row, id);
-const uint32_t USERNAME_SIZE = size_of_attribute(Row, username);
-const uint32_t EMAIL_SIZE = size_of_attribute(Row, email);
-const uint32_t ID_OFFSET = 0;
-const uint32_t USERNAME_OFFSET = ID_OFFSET + ID_SIZE;
-const uint32_t EMAIL_OFFSET = USERNAME_OFFSET + USERNAME_SIZE;
-const uint32_t ROW_SIZE = ID_SIZE + USERNAME_SIZE + EMAIL_SIZE;
-const uint32_t PAGE_SIZE = 4096;
+// Row attribute sizes and offsets
+#define ID_SIZE (size_of_attribute(Row, id))
+#define USERNAME_SIZE (size_of_attribute(Row, username))
+#define EMAIL_SIZE (size_of_attribute(Row, email))
+#define ID_OFFSET 0
+#define USERNAME_OFFSET (ID_OFFSET + ID_SIZE)
+#define EMAIL_OFFSET (USERNAME_OFFSET + USERNAME_SIZE)
+#define ROW_SIZE (ID_SIZE + USERNAME_SIZE + EMAIL_SIZE)
+#define PAGE_SIZE 4096
 
-const uint32_t NODE_TYPE_SIZE = sizeof(uint8_t);
-const uint32_t NODE_TYPE_OFFSET = 0;
-const uint32_t IS_ROOT_SIZE = sizeof(uint8_t);
-const uint32_t IS_ROOT_OFFSET = NODE_TYPE_SIZE;
-const uint32_t PARENT_POINTER_SIZE = sizeof(uint32_t);
-const uint32_t PARENT_POINTER_OFFSET = IS_ROOT_OFFSET + IS_ROOT_SIZE;
-const uint8_t COMMON_NODE_HEADER_SIZE =
-    NODE_TYPE_SIZE + IS_ROOT_SIZE + PARENT_POINTER_SIZE;
+// Node header sizes and offsets
+#define NODE_TYPE_SIZE (sizeof(uint8_t))
+#define NODE_TYPE_OFFSET 0
+#define IS_ROOT_SIZE (sizeof(uint8_t))
+#define IS_ROOT_OFFSET (NODE_TYPE_SIZE)
+#define PARENT_POINTER_SIZE (sizeof(uint32_t))
+#define PARENT_POINTER_OFFSET (IS_ROOT_OFFSET + IS_ROOT_SIZE)
+#define COMMON_NODE_HEADER_SIZE (NODE_TYPE_SIZE + IS_ROOT_SIZE + PARENT_POINTER_SIZE)
 
-const uint32_t INTERNAL_NODE_NUM_KEYS_SIZE = sizeof(uint32_t);
-const uint32_t INTERNAL_NODE_NUM_KEYS_OFFSET = COMMON_NODE_HEADER_SIZE;
-const uint32_t INTERNAL_NODE_RIGHT_CHILD_SIZE = sizeof(uint32_t);
-const uint32_t INTERNAL_NODE_RIGHT_CHILD_OFFSET =
-    INTERNAL_NODE_NUM_KEYS_OFFSET + INTERNAL_NODE_NUM_KEYS_SIZE;
-const uint32_t INTERNAL_NODE_HEADER_SIZE = COMMON_NODE_HEADER_SIZE +
-                                           INTERNAL_NODE_NUM_KEYS_SIZE +
-                                           INTERNAL_NODE_RIGHT_CHILD_SIZE;
-                                    
-                                    const uint32_t INTERNAL_NODE_KEY_SIZE = sizeof(uint32_t);
-const uint32_t INTERNAL_NODE_CHILD_SIZE = sizeof(uint32_t);
-const uint32_t INTERNAL_NODE_CELL_SIZE =
-    INTERNAL_NODE_CHILD_SIZE + INTERNAL_NODE_KEY_SIZE;
-const uint32_t INTERNAL_NODE_MAX_KEYS = 3;
+// Internal node header sizes and offsets
+#define INTERNAL_NODE_NUM_KEYS_SIZE (sizeof(uint32_t))
+#define INTERNAL_NODE_NUM_KEYS_OFFSET (COMMON_NODE_HEADER_SIZE)
+#define INTERNAL_NODE_RIGHT_CHILD_SIZE (sizeof(uint32_t))
+#define INTERNAL_NODE_RIGHT_CHILD_OFFSET (INTERNAL_NODE_NUM_KEYS_OFFSET + INTERNAL_NODE_NUM_KEYS_SIZE)
+#define INTERNAL_NODE_HEADER_SIZE (COMMON_NODE_HEADER_SIZE + INTERNAL_NODE_NUM_KEYS_SIZE + INTERNAL_NODE_RIGHT_CHILD_SIZE)
 
+// Internal node cell sizes and maximum keys
+#define INTERNAL_NODE_KEY_SIZE (sizeof(uint32_t))
+#define INTERNAL_NODE_CHILD_SIZE (sizeof(uint32_t))
+#define INTERNAL_NODE_CELL_SIZE (INTERNAL_NODE_CHILD_SIZE + INTERNAL_NODE_KEY_SIZE)
+#define INTERNAL_NODE_MAX_KEYS 3
+
+// Function to calculate the size of an attribute
+size_t size_of_attribute(Row* row, Attribute attribute) {
+    // Implementation of size calculation
+}
+
+// Function to initialize a new row
+void initialize_row(Row* row, uint32_t id, const char* username, const char* email) {
+    row->id = id;
+    strncpy(row->username, username, USERNAME_SIZE);
+    strncpy(row->email, email, EMAIL_SIZE);
+}
+
+// Function to print a row
+void print_row(const Row* row) {
+    printf("(%d, %s, %s)\n", row->id, row->username, row->email);
+}
+
+// Additional comments explaining each section
+// Row attribute sizes and offsets define the layout of a row in memory
+// Node header sizes and offsets define the layout of a node header in memory
+// Internal node header sizes and offsets define the layout of an internal node header in memory
+// Internal node cell sizes and maximum keys define the layout of cells within an internal node
 
 const uint32_t LEAF_NODE_NUM_CELLS_SIZE = sizeof(uint32_t);
 const uint32_t LEAF_NODE_NUM_CELLS_OFFSET = COMMON_NODE_HEADER_SIZE;
