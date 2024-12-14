@@ -32,23 +32,6 @@
 #define INTERNAL_NODE_CELL_SIZE (INTERNAL_NODE_CHILD_SIZE + INTERNAL_NODE_KEY_SIZE)
 #define INTERNAL_NODE_MAX_KEYS 3
 
-// Function to calculate the size of an attribute
-size_t size_of_attribute(Row* row, Attribute attribute) {
-    // Implementation of size calculation
-}
-
-// Function to initialize a new row
-void initialize_row(Row* row, uint32_t id, const char* username, const char* email) {
-    row->id = id;
-    strncpy(row->username, username, USERNAME_SIZE);
-    strncpy(row->email, email, EMAIL_SIZE);
-}
-
-// Function to print a row
-void print_row(const Row* row) {
-    printf("(%d, %s, %s)\n", row->id, row->username, row->email);
-}
-
 // Additional comments explaining each section
 // Row attribute sizes and offsets define the layout of a row in memory
 // Node header sizes and offsets define the layout of a node header in memory
